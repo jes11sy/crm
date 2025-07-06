@@ -43,9 +43,6 @@ urlpatterns = [
     # Аутентификация
     path('api/v1/auth/', include('auth_service.urls')),
     
-    # Прокси к микросервисам
+    # Прокси к микросервисам и health check
     path('api/v1/', include('gateway.urls')),
-    
-    # Health check
-    path('health/', include('gateway.urls')),
 ]
