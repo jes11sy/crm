@@ -12,6 +12,25 @@ logger = logging.getLogger(__name__)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def home_page(request):
+    """Главная страница CRM"""
+    return Response({
+        'message': 'Добро пожаловать в CRM систему!',
+        'service': 'api_gateway',
+        'version': '1.0.0',
+        'endpoints': {
+            'api_docs': '/swagger/',
+            'health_check': '/api/v1/health/',
+            'auth': '/api/v1/auth/',
+            'users': '/api/v1/users/',
+            'zayavki': '/api/v1/zayavki/',
+            'finance': '/api/v1/finance/'
+        }
+    })
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def health_check(request):
     """Health check для API Gateway"""
     services_status = {
