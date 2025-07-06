@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_DB: ${DB_NAME:-crm_production}
       POSTGRES_USER: ${DB_USER:-crm_user}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-crm_password}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-1740}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -47,19 +47,13 @@ services:
       - DB_HOST=postgres
       - DB_NAME=${DB_NAME:-crm_production}
       - DB_USER=${DB_USER:-crm_user}
-      - DB_PASSWORD=${DB_PASSWORD:-crm_password}
+      - DB_PASSWORD=${DB_PASSWORD:-1740}
       - REDIS_URL=redis://redis:6379/0
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
-      user-service:
-        condition: service_started
-      zayavki-service:
-        condition: service_started
-      finance-service:
-        condition: service_started
     networks:
       - crm-network
 
@@ -69,8 +63,17 @@ services:
     ports:
       - "8001:8001"
     environment:
-      - DEBUG=True
+      - DEBUG=${DEBUG:-False}
       - DJANGO_SETTINGS_MODULE=usersvc.settings
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_HOST=postgres
+      - DB_NAME=${DB_NAME:-crm_production}
+      - DB_USER=${DB_USER:-crm_user}
+      - DB_PASSWORD=${DB_PASSWORD:-1740}
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
       - user_data:/app/data
     networks:
@@ -82,8 +85,17 @@ services:
     ports:
       - "8002:8002"
     environment:
-      - DEBUG=True
+      - DEBUG=${DEBUG:-False}
       - DJANGO_SETTINGS_MODULE=zayavkisvc.settings
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_HOST=postgres
+      - DB_NAME=${DB_NAME:-crm_production}
+      - DB_USER=${DB_USER:-crm_user}
+      - DB_PASSWORD=${DB_PASSWORD:-1740}
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
       - zayavki_data:/app/data
     networks:
@@ -95,8 +107,17 @@ services:
     ports:
       - "8003:8003"
     environment:
-      - DEBUG=True
+      - DEBUG=${DEBUG:-False}
       - DJANGO_SETTINGS_MODULE=financesvc.settings
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_HOST=postgres
+      - DB_NAME=${DB_NAME:-crm_production}
+      - DB_USER=${DB_USER:-crm_user}
+      - DB_PASSWORD=${DB_PASSWORD:-1740}
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
       - finance_data:/app/data
     networks:
