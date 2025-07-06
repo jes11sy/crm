@@ -123,15 +123,32 @@ services:
     networks:
       - crm-network
 
+  # Frontend (React приложение)
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://crm.lead-schem.ru/api
+      - REACT_APP_ENV=production
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    networks:
+      - crm-network
+    depends_on:
+      - api-gateway
+
   # Nginx (без SSL для разработки)
   nginx:
     image: nginx:alpine
     ports:
       - "80:80"
     volumes:
-      - ./nginx-simple.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - api-gateway
+      - frontend
     networks:
       - crm-network
 
