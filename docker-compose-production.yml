@@ -1,0 +1,154 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME:-crm_production}
+      POSTGRES_USER: ${DB_USER:-crm_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-crm_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - crm-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-crm_user}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    networks:
+      - crm-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # API Gateway
+  api-gateway:
+    build: ./api_gateway
+    environment:
+      - DEBUG=False
+      - DJANGO_SETTINGS_MODULE=api_gateway.settings
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_HOST=postgres
+      - DB_NAME=${DB_NAME:-crm_production}
+      - DB_USER=${DB_USER:-crm_user}
+      - DB_PASSWORD=${DB_PASSWORD:-crm_password}
+      - REDIS_URL=redis://redis:6379/0
+      - ALLOWED_HOSTS=crm.lead-schem.ru,www.crm.lead-schem.ru
+      - CSRF_TRUSTED_ORIGINS=https://crm.lead-schem.ru,https://www.crm.lead-schem.ru
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      user-service:
+        condition: service_started
+      zayavki-service:
+        condition: service_started
+      finance-service:
+        condition: service_started
+    networks:
+      - crm-network
+    restart: unless-stopped
+
+  # User Service
+  user-service:
+    build: ./user_service
+    environment:
+      - DEBUG=False
+      - DJANGO_SETTINGS_MODULE=usersvc.settings
+      - ALLOWED_HOSTS=crm.lead-schem.ru,www.crm.lead-schem.ru
+    volumes:
+      - user_data:/app/data
+    networks:
+      - crm-network
+    restart: unless-stopped
+
+  # Zayavki Service
+  zayavki-service:
+    build: ./zayavki_service
+    environment:
+      - DEBUG=False
+      - DJANGO_SETTINGS_MODULE=zayavkisvc.settings
+      - ALLOWED_HOSTS=crm.lead-schem.ru,www.crm.lead-schem.ru
+    volumes:
+      - zayavki_data:/app/data
+    networks:
+      - crm-network
+    restart: unless-stopped
+
+  # Finance Service
+  finance-service:
+    build: ./financesvc
+    environment:
+      - DEBUG=False
+      - DJANGO_SETTINGS_MODULE=financesvc.settings
+      - ALLOWED_HOSTS=crm.lead-schem.ru,www.crm.lead-schem.ru
+    volumes:
+      - finance_data:/app/data
+    networks:
+      - crm-network
+    restart: unless-stopped
+
+  # Frontend (React приложение)
+  frontend:
+    build: ./frontend
+    environment:
+      - REACT_APP_API_URL=https://crm.lead-schem.ru/api
+      - REACT_APP_DOMAIN=crm.lead-schem.ru
+      - NODE_ENV=production
+    networks:
+      - crm-network
+    restart: unless-stopped
+
+  # Nginx с SSL (production)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-production.conf:/etc/nginx/nginx.conf
+      - ./ssl_certs:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - api-gateway
+      - frontend
+    networks:
+      - crm-network
+    restart: unless-stopped
+
+  # Certbot для автоматического обновления SSL сертификатов
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./ssl_certs:/etc/letsencrypt
+      - ./certbot_webroot:/var/www/certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot --email defouz03@gmail.com --agree-tos --no-eff-email -d crm.lead-schem.ru -d www.crm.lead-schem.ru
+    networks:
+      - crm-network
+    profiles:
+      - ssl-setup
+
+volumes:
+  postgres_data:
+  redis_data:
+  user_data:
+  zayavki_data:
+  finance_data:
+  nginx_logs:
+
+networks:
+  crm-network:
+    driver: bridge 

@@ -1,0 +1,359 @@
+/* Глобальные стили для единой дизайн-системы */
+
+/* Сброс стилей */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.88);
+  background-color: #f5f5f5;
+}
+
+/* Утилиты для отступов */
+.p-0 { padding: 0 !important; }
+.p-1 { padding: 4px !important; }
+.p-2 { padding: 8px !important; }
+.p-3 { padding: 16px !important; }
+.p-4 { padding: 24px !important; }
+.p-5 { padding: 32px !important; }
+
+.m-0 { margin: 0 !important; }
+.m-1 { margin: 4px !important; }
+.m-2 { margin: 8px !important; }
+.m-3 { margin: 16px !important; }
+.m-4 { margin: 24px !important; }
+.m-5 { margin: 32px !important; }
+
+/* Утилиты для flexbox */
+.d-flex { display: flex !important; }
+.d-inline-flex { display: inline-flex !important; }
+.flex-column { flex-direction: column !important; }
+.flex-row { flex-direction: row !important; }
+.justify-content-between { justify-content: space-between !important; }
+.justify-content-center { justify-content: center !important; }
+.align-items-center { align-items: center !important; }
+.align-items-start { align-items: flex-start !important; }
+.align-items-end { align-items: flex-end !important; }
+
+/* Утилиты для текста */
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+.text-primary { color: #1890ff !important; }
+.text-success { color: #52c41a !important; }
+.text-warning { color: #faad14 !important; }
+.text-error { color: #ff4d4f !important; }
+.text-muted { color: rgba(0, 0, 0, 0.45) !important; }
+
+/* Утилиты для фона */
+.bg-primary { background-color: #1890ff !important; }
+.bg-success { background-color: #52c41a !important; }
+.bg-warning { background-color: #faad14 !important; }
+.bg-error { background-color: #ff4d4f !important; }
+.bg-light { background-color: #fafafa !important; }
+.bg-white { background-color: #ffffff !important; }
+
+/* Утилиты для границ */
+.border { border: 1px solid #d9d9d9 !important; }
+.border-top { border-top: 1px solid #d9d9d9 !important; }
+.border-bottom { border-bottom: 1px solid #d9d9d9 !important; }
+.border-left { border-left: 1px solid #d9d9d9 !important; }
+.border-right { border-right: 1px solid #d9d9d9 !important; }
+.border-radius { border-radius: 6px !important; }
+.border-radius-sm { border-radius: 2px !important; }
+.border-radius-lg { border-radius: 8px !important; }
+
+/* Утилиты для размеров */
+.w-100 { width: 100% !important; }
+.h-100 { height: 100% !important; }
+.w-auto { width: auto !important; }
+.h-auto { height: auto !important; }
+
+/* Утилиты для позиционирования */
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.position-fixed { position: fixed !important; }
+
+/* Утилиты для отображения */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+
+/* Утилиты для видимости */
+.visible { visibility: visible !important; }
+.invisible { visibility: hidden !important; }
+
+/* Утилиты для overflow */
+.overflow-hidden { overflow: hidden !important; }
+.overflow-auto { overflow: auto !important; }
+.overflow-scroll { overflow: scroll !important; }
+
+/* Кастомные классы для компонентов */
+.page-container {
+  padding: 24px;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.card-container {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.table-container {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.modal-container {
+  border-radius: 8px;
+}
+
+.form-container {
+  padding: 24px;
+}
+
+/* Стили для статусов */
+.status-tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  min-width: 60px;
+}
+
+.status-pending {
+  background-color: #faad14;
+  color: #ffffff;
+}
+
+.status-active {
+  background-color: #52c41a;
+  color: #ffffff;
+}
+
+.status-inactive {
+  background-color: #ff4d4f;
+  color: #ffffff;
+}
+
+.status-completed {
+  background-color: #1890ff;
+  color: #ffffff;
+}
+
+/* Стили для денежных сумм */
+.money-positive {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+.money-negative {
+  color: #ff4d4f;
+  font-weight: 500;
+}
+
+.money-neutral {
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 500;
+}
+
+/* Стили для иконок */
+.icon-small {
+  font-size: 12px;
+}
+
+.icon-medium {
+  font-size: 16px;
+}
+
+.icon-large {
+  font-size: 20px;
+}
+
+/* Стили для кнопок */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Стили для форм */
+.form-section {
+  margin-bottom: 24px;
+}
+
+.form-section-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+/* Стили для таблиц */
+.table-header {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.table-row-hover:hover {
+  background-color: #f5f5f5;
+}
+
+/* Стили для загрузки */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.loading-text {
+  margin-left: 8px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+/* Стили для пустых состояний */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.empty-state-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.empty-state-description {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 16px;
+  }
+  
+  .card-container {
+    padding: 16px;
+  }
+  
+  .form-container {
+    padding: 16px;
+  }
+  
+  .d-none-mobile {
+    display: none !important;
+  }
+  
+  .d-block-mobile {
+    display: block !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-container {
+    padding: 12px;
+  }
+  
+  .card-container {
+    padding: 12px;
+  }
+  
+  .form-container {
+    padding: 12px;
+  }
+}
+
+/* Анимации */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Стили для скроллбара */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Стили для фокуса */
+.focus-visible {
+  outline: 2px solid #1890ff;
+  outline-offset: 2px;
+}
+
+/* Стили для выделения текста */
+::selection {
+  background-color: #1890ff;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #1890ff;
+  color: #ffffff;
+} 
