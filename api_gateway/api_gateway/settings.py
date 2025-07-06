@@ -150,6 +150,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "http://crm.lead-schem.ru",
+    "https://crm.lead-schem.ru",
+    "http://www.crm.lead-schem.ru",
+    "https://www.crm.lead-schem.ru",
 ]
 
 # Security headers
@@ -159,9 +163,9 @@ X_FRAME_OPTIONS = 'DENY'
 
 # Microservices configuration
 MICROSERVICES = {
-    'user_service': 'http://127.0.0.1:8001',
-    'zayavki_service': 'http://127.0.0.1:8002',
-    'finance_service': 'http://127.0.0.1:8003',
+    'user_service': 'http://user-service:8001',
+    'zayavki_service': 'http://zayavki-service:8002',
+    'finance_service': 'http://finance-service:8003',
 }
 
 # REST Framework settings
@@ -199,9 +203,9 @@ SIMPLE_JWT = {
 }
 
 # Microservices URLs
-USER_SERVICE_URL = os.getenv('USER_SERVICE_URL', 'http://localhost:8001')
-ZAYAVKI_SERVICE_URL = os.getenv('ZAYAVKI_SERVICE_URL', 'http://localhost:8002')
-FINANCE_SERVICE_URL = os.getenv('FINANCE_SERVICE_URL', 'http://localhost:8003')
+USER_SERVICE_URL = os.getenv('USER_SERVICE_URL', 'http://user-service:8001')
+ZAYAVKI_SERVICE_URL = os.getenv('ZAYAVKI_SERVICE_URL', 'http://zayavki-service:8002')
+FINANCE_SERVICE_URL = os.getenv('FINANCE_SERVICE_URL', 'http://finance-service:8003')
 
 # Logging
 LOGGING = {

@@ -227,6 +227,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "http://crm.lead-schem.ru",
+    "https://crm.lead-schem.ru",
+    "http://www.crm.lead-schem.ru",
+    "https://www.crm.lead-schem.ru",
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = DEBUG  # В режиме разработки разрешаем все origins

@@ -130,3 +130,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://crm.lead-schem.ru",
+    "https://crm.lead-schem.ru",
+    "http://www.crm.lead-schem.ru",
+    "https://www.crm.lead-schem.ru",
+]
+CORS_ALLOW_CREDENTIALS = True
