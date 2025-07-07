@@ -87,7 +87,6 @@ WSGI_APPLICATION = 'api_gateway.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Performance optimizations
-CONN_MAX_AGE = 60  # Keep database connections alive for 60 seconds
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 

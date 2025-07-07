@@ -14,22 +14,26 @@ class UserSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.Serializer):
     """Сериализатор для входа в систему"""
-    username = serializers.CharField(max_length=150)
+    login = serializers.CharField(max_length=150)
     password = serializers.CharField(max_length=128, write_only=True)
     
     def validate(self, attrs):
-        username = attrs.get('username')
+        login = attrs.get('login')
         password = attrs.get('password')
         
-        if username and password:
-            user = authenticate(username=username, password=password)
+        if login and password:
+            # Пытаемся найти пользователя по username или email
+            user = User.objects.filter(username=login).first()
             if not user:
+                user = User.objects.filter(email=login).first()
+            
+            if not user or not user.check_password(password):
                 raise serializers.ValidationError('Неверные учетные данные.')
             if not user.is_active:
                 raise serializers.ValidationError('Пользователь заблокирован.')
             attrs['user'] = user
         else:
-            raise serializers.ValidationError('Необходимо указать имя пользователя и пароль.')
+            raise serializers.ValidationError('Необходимо указать логин и пароль.')
         
         return attrs
 

@@ -72,7 +72,7 @@ class LoginView(APIView):
         
         # Логируем неудачную попытку
         LoginAttempt.objects.create(
-            username=request.data.get('username', ''),
+            username=request.data.get('login', ''),
             ip_address=self.get_client_ip(request),
             user_agent=request.META.get('HTTP_USER_AGENT', ''),
             success=False
