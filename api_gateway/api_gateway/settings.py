@@ -116,10 +116,7 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASSWORD', '1740'),
         'HOST': os.environ.get('DB_HOST', 'postgres'),
         'PORT': os.environ.get('DB_PORT', '5432'),
-        'OPTIONS': {
-            'CONN_MAX_AGE': 60,
-            'CONN_HEALTH_CHECKS': True,
-        },
+        'CONN_MAX_AGE': 60,
     }
 }
 
